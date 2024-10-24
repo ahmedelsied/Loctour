@@ -1,4 +1,4 @@
-# PlaystationSystem Starter Project
+# Starter Project
 
 **Project template with basic features for every project**
 
