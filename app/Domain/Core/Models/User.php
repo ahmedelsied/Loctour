@@ -4,6 +4,7 @@ namespace App\Domain\Core\Models;
 
 use App\Support\Concerns\HasFactory;
 use App\Support\Traits\HasPassword;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -28,9 +29,14 @@ class User extends Authenticatable implements HasMedia
 
     protected $casts = [
         'status' => 'boolean',
-        'owner' => 'boolean'
+        'owner' => 'boolean',
+        'phone_verified_at' => 'datetime'
     ];
 
+    public function fcmTokens(): HasMany
+    {
+        return $this->hasMany(FcmToken::class);
+    }
     public function getAvatarAttribute()
     {
         return $this->getFirstMediaUrl();

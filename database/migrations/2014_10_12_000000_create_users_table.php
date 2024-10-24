@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('username')->unique()->nullable();
             $table->string('phone')->unique();
+            $table->timestamp('phone_verified_at')->nullable();
             $table->string('password');
             $table->boolean('status')->default(true);
             $table->softDeletes();

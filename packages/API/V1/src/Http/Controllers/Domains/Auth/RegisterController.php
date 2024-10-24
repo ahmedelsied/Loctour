@@ -8,24 +8,21 @@ use Illuminate\Support\Facades\Auth;
 use Loctour\API\V1\Http\Requests\Auth\LoginRequest;
 use Loctour\API\V1\Resources\UserResource;
 
-class LoginController extends APIController
+class RegisterController extends APIController
 {
     private $user;
     private $validated;
     public function __invoke(LoginRequest $request)
     {
         $this->validated = $request->validated();
-        if (Auth::attempt(Arr::only($this->validated,['phone','password']))) {
-            $this->user = auth()->user();
+        $this->user = auth()->user();
 
-            $token = $this->user->createToken('app-token');
-            $this->storeFCMToken();
-            $this->user->forceFill(['token' => $token->plainTextToken]);
+        $token = $this->user->createToken('app-token');
+        $this->storeFCMToken();
+        $this->user->forceFill(['token' => $token->plainTextToken]);
 
-            return $this->success(new UserResource($this->user));
-        }
+        return $this->success(new UserResource($this->user));
 
-        return $this->error(__('Invalid phone or password'));
     }
 
     private function storeFCMToken()

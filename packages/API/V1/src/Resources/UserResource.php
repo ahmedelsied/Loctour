@@ -13,8 +13,9 @@ class UserResource extends JsonResource
         return [
             'id'            =>  $this->id,
             'name'          =>  $this->name,
+            'username'      =>  $this->username,
             'phone'         =>  $this->phone,
-            'status'        =>  $this->status,
+            'token'     =>  $this->token ?? $request->bearerToken(),
             'created_at'    =>  $this->created_at->format('Y-m-d h:ia'),
             'updated_at'    =>  $this->updated_at->format('Y-m-d h:ia')
         ];

@@ -12,7 +12,7 @@ return [
     | as the size rules. Feel free to tweak each of these messages here.
     |
     */
-    'phone' => 'المجال :attribute يجب أن يكون رقما صالحا.',
+    'phone' => 'حقل :attribute يجب أن يكون رقما صالحا.',
     'accepted' => 'يجب قبوله :attribute.',
     'accepted_if' => 'يجب قبول :attribute عندما يكون :other بقيمة :value.',
     'active_url' => ':attribute ليس عنوان URL صالحا.'

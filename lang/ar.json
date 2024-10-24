@@ -16,5 +16,6 @@
     "Select all": "اختر الكل",
     "Password Confirmation": "تأكيد كلمة المرور",
     "Roles": "الأدوار",
-    "Avatar": "الصورة الرمزية"
+    "Avatar": "الصورة الرمزية",
+    "Invalid phone or password": "رقم الهاتف أو كلمة المرور خاطئة"
 }
