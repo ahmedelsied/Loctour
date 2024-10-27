@@ -28,14 +28,6 @@ class RegisterController extends APIController
     {
         $this->user = User::create($this->validated);
     }
-
-    private function sendOtp()
-    {
-        $this->user->userPhoneOtp()->create([
-            'phone' => $this->validated['phone'],
-            'otp' => rand(100000, 999999)
-        ]);
-    }
     
     private function storeFCMToken()
     {
@@ -45,4 +37,13 @@ class RegisterController extends APIController
                         'device_type' => $this->validated['device_type']
                     ]);
     }
+
+    private function sendOtp()
+    {
+        $this->user->userPhoneOtp()->create([
+            'phone' => $this->validated['phone'],
+            'otp' => rand(100000, 999999)
+        ]);
+    }
+    
 }
