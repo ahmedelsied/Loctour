@@ -2,29 +2,23 @@
 
 namespace Loctour\API\V1\Http\Controllers\Domains\Auth;
 
-use Illuminate\Support\Arr;
+use App\Domain\Core\Models\UserPhoneOtp;
 use Loctour\API\V1\Http\Controllers\APIController;
-use Illuminate\Support\Facades\Auth;
-use Loctour\API\V1\Http\Requests\Auth\RegisterRequest;
 use App\Domain\Core\Models\User;
+use Loctour\API\V1\Http\Requests\Auth\VerifyPhoneRequest;
+use Loctour\API\V1\Resources\UserResource;
+
 class VerifyPhoneController extends APIController
 {
     private $user;
     private $validated;
-    public function __invoke(\Request $request)
+    public function __invoke(VerifyPhoneRequest $request)
     {
-        $this->validated = $request->validate(
-        [
-            "phone" => "required|phone:SA",
-            "otp" => "required|numeric"
-        ]);
+        $this->validated = $request->validated();
 
-        if(UserPhoneOtp::wherePhone($this->validated['phone'])
-                    ->whereOtp($this->validated['otp'])
-                    ->where("expire_at", ">=", now())
-                    ->exist()){
+        if($this->isValidOtp()){
             $this->user = User::wherePhone($this->validated['phone'])->first();
-            $this->user->update(['phone_verified' => true]);
+            $this->user->update(['phone_verified_at' => now()]);
             $token = $this->user->createToken('app-token');
             $this->user->forceFill(['token' => $token->plainTextToken]);
             $this->user->userPhoneOtp()->delete();
@@ -33,5 +27,13 @@ class VerifyPhoneController extends APIController
         return $this->error(__('Invalid phone or otp'));
     }
 
-    
+    private function isValidOtp(): bool
+    {
+        return UserPhoneOtp::wherePhone($this->validated['phone'])
+                            ->whereOtp($this->validated['otp'])
+                            ->where("expires_at", ">=", now())
+                            ->exists();
+    }
+
+
 }

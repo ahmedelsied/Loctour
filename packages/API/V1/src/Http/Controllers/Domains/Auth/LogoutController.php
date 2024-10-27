@@ -9,6 +9,6 @@ class LogoutController extends APIController
     public function __invoke()
     {
         auth()->user()->currentAccessToken()->delete();
-        return $this->executed();
+        return $this->success(__("Logged out successfully"));
     }
 }

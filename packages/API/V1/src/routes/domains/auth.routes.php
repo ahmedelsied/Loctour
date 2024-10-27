@@ -6,6 +6,6 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], static function () {
     Route::post('register','RegisterController');
     Route::post('verify-phone','VerifyPhoneController');
     Route::group(['middleware' => 'auth:sanctum'], static function () {
-//        Route::delete('logout','LogoutController');
+        Route::delete('logout','LogoutController');
     });
 });

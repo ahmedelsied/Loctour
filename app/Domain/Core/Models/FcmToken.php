@@ -10,6 +10,9 @@ class FcmToken extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    protected $casts = [
+        'expires_at' =>  'datetime'
+    ];
 
     public function user(): BelongsTo
     {

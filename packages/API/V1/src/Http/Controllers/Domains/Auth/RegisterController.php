@@ -2,11 +2,8 @@
 
 namespace Loctour\API\V1\Http\Controllers\Domains\Auth;
 
-use Illuminate\Support\Arr;
 use Loctour\API\V1\Http\Controllers\APIController;
-use Illuminate\Support\Facades\Auth;
 use Loctour\API\V1\Http\Requests\Auth\RegisterRequest;
-use Loctour\API\V1\Resources\UserResource;
 use App\Domain\Core\Models\User;
 class RegisterController extends APIController
 {
@@ -28,7 +25,7 @@ class RegisterController extends APIController
     {
         $this->user = User::create($this->validated);
     }
-    
+
     private function storeFCMToken()
     {
         $this->user->fcmTokens()
@@ -42,8 +39,9 @@ class RegisterController extends APIController
     {
         $this->user->userPhoneOtp()->create([
             'phone' => $this->validated['phone'],
-            'otp' => rand(100000, 999999)
+            'otp' => 123456, //rand(100000, 999999),
+            'expires_at' => now()->addMinutes(10)
         ]);
     }
-    
+
 }
