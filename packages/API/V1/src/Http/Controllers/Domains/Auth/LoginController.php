@@ -15,7 +15,10 @@ class LoginController extends APIController
     public function __invoke(LoginRequest $request)
     {
         $this->validated = $request->validated();
-        if (Auth::attempt(Arr::only($this->validated,['phone','password']))) {
+        if (Auth::attempt(
+            [
+                'phone_verified_at' => ['operator' => '!=', 'value' => null]
+            ] + Arr::only($this->validated,['phone','password']))) {
             $this->user = auth()->user();
 
             $token = $this->user->createToken('app-token');
