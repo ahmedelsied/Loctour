@@ -21,7 +21,7 @@ class User extends Authenticatable implements HasMedia
     use HasPassword;
     use InteractsWithMedia;
 
-    protected $fillable = ['name', 'phone', 'password', 'owner','status'];
+    protected $fillable = ['name', 'phone', 'password','status'];
 
     protected $hidden = ['password', 'remember_token'];
 
@@ -37,6 +37,12 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(FcmToken::class);
     }
+
+    public function userPhoneOtp(): HasMany
+    {
+        return $this->hasMany(UserPhoneOtp::class);
+    }
+    
     public function getAvatarAttribute()
     {
         return $this->getFirstMediaUrl();

@@ -5,26 +5,38 @@ namespace Loctour\API\V1\Http\Controllers\Domains\Auth;
 use Illuminate\Support\Arr;
 use Loctour\API\V1\Http\Controllers\APIController;
 use Illuminate\Support\Facades\Auth;
-use Loctour\API\V1\Http\Requests\Auth\LoginRequest;
+use Loctour\API\V1\Http\Requests\Auth\RegisterRequest;
 use Loctour\API\V1\Resources\UserResource;
-
+use App\Domain\Core\Models\User;
 class RegisterController extends APIController
 {
     private $user;
     private $validated;
-    public function __invoke(LoginRequest $request)
+    public function __invoke(RegisterRequest $request)
     {
         $this->validated = $request->validated();
-        $this->user = auth()->user();
-
-        $token = $this->user->createToken('app-token');
+        $this->createUser();
         $this->storeFCMToken();
-        $this->user->forceFill(['token' => $token->plainTextToken]);
+        $this->sendOtp();
 
-        return $this->success(new UserResource($this->user));
-
+        return $this->success(__("We've sent you a verification code to your phone"));
     }
 
+
+
+    private function createUser()
+    {
+        $this->user = User::create($this->validated);
+    }
+
+    private function sendOtp()
+    {
+        $this->user->userPhoneOtp()->create([
+            'phone' => $this->validated['phone'],
+            'otp' => rand(100000, 999999)
+        ]);
+    }
+    
     private function storeFCMToken()
     {
         $this->user->fcmTokens()

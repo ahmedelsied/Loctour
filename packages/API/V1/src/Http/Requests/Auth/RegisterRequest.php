@@ -5,7 +5,7 @@ namespace Loctour\API\V1\Http\Requests\Auth;
 use App\Domain\Core\Enums\DevicesEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     protected function prepareForValidation()
     {
@@ -16,6 +16,8 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
+            'name'          => 'required|string|max:255',
+            'username'      => 'required|string|max:255|unique:users,username',
             'phone'         =>  'required|phone:SA',
             'password'      =>  'required',
             'fcm_token'     =>  'required|string',
@@ -26,6 +28,8 @@ class LoginRequest extends FormRequest
     public function attributes()
     {
         return [
+            'name'          => __('Name'),
+            'username'      => __('Username'),
             'phone'     =>  __('Phone'),
             'password'  =>  __('Password'),
             'fcm_token' =>  __('FCM Token'),
