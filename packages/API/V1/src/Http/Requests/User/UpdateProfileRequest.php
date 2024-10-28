@@ -27,6 +27,7 @@ class UpdateProfileRequest extends FormRequest
             ],
             'password' => 'sometimes|string|min:8|confirmed',
             'phone' => [
+                'nullable',
                 'sometimes',
                 'string',
                 'max:15',

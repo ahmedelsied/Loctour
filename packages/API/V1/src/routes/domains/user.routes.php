@@ -1,10 +1,7 @@
 <?php
 
-Route::group(['prefix' => 'account'], function (){
-});
 
-
-Route::group(['prefix' => 'user', 'namespace' => 'User', 'middleware' => 'auth:sanctum'], static function () {
+Route::group(['prefix' => 'user', 'namespace' => 'User'], static function () {
     Route::put('/account','AccountController@update');
-    Route::delete('/account/delete','AccountController@delete');
+    Route::delete('/account','AccountController@delete');
 });
