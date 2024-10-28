@@ -16,7 +16,7 @@ class AccountController extends APIController
     public function update(UpdateProfileRequest $request)
     {
         $user = auth()->user();
-        $data = array_filter($request->only(['name', 'username', 'birthday']), fn($value) => !is_null($value));
+        $data = array_filter($request->validated(), fn($value) => !is_null($value));
 
         $user = app(UpdateProfileAction::class)->execute($user,$data);
 
