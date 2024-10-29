@@ -20,11 +20,6 @@ class UpdateProfileAction
             $this->updateAvatar($user, $data['avatar']);
         }
 
-        // Handle phone number update
-        if (!empty($data['phone']) && $data['phone'] !== $user->phone) {
-            $this->generateAndStoreOtp($user, $data['phone']);
-        }
-
         // Update user profile
         $user->update($updateData);
 
@@ -37,14 +32,4 @@ class UpdateProfileAction
         $user->addMedia($avatar)->toMediaCollection();
     }
 
-    private function generateAndStoreOtp($user, $phone)
-    {
-        $otp = 123456; //rand(100000, 999999);
-
-        UserPhoneOtp::updateOrCreate(
-            ['user_id' => $user->id, 'phone' => $phone],
-            ['otp' => $otp, 'expires_at' => now()->addMinutes(5)]
-        );
-
-    }
 }
