@@ -2,11 +2,11 @@
 
 namespace Loctour\API\V1\Http\Controllers\Domains\Auth;
 
+use App\Domain\Core\Models\User;
 use App\Domain\Core\Models\UserPhoneOtp;
 use Loctour\API\V1\Http\Controllers\APIController;
-use App\Domain\Core\Models\User;
 use Loctour\API\V1\Http\Requests\Auth\VerifyPhoneRequest;
-use Loctour\API\V1\Resources\UserResource;
+use Loctour\API\V1\Resources\User\UserResource;
 
 class VerifyPhoneController extends APIController
 {

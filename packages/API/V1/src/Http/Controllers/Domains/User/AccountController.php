@@ -2,13 +2,10 @@
 
 namespace Loctour\API\V1\Http\Controllers\Domains\User;
 
-use App\Domain\Core\Models\UserPhoneOtp;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Hash;
-use Loctour\API\V1\Actions\UpdateProfileAction;
+use Loctour\API\V1\Actions\User\UpdateProfileAction;
 use Loctour\API\V1\Http\Controllers\APIController;
 use Loctour\API\V1\Http\Requests\User\UpdateProfileRequest;
-use Loctour\API\V1\Resources\UserResource;
+use Loctour\API\V1\Resources\User\UserResource;
 
 class AccountController extends APIController
 {

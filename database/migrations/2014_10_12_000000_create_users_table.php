@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamp('phone_verified_at')->nullable();
             $table->string('password');
             $table->boolean('status')->default(true);
-            $table->date('birthdate');
+            $table->date('birthdate')->nullable();
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

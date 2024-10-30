@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('place_id')->nullable()->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('type', 15);
+            $table->string('type', 15)->nullable();
             $table->text('content')->nullable();
             $table->timestamps();
         });

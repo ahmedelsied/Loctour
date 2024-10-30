@@ -2,6 +2,7 @@
 
 namespace App\Domain\Core\Models;
 
+use App\Domain\Content\Models\Post;
 use App\Support\Concerns\HasFactory;
 use App\Support\Traits\HasPassword;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -41,6 +42,11 @@ class User extends Authenticatable implements HasMedia
     public function userPhoneOtp(): HasMany
     {
         return $this->hasMany(UserPhoneOtp::class);
+    }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
     }
 
     public function getAvatarAttribute()

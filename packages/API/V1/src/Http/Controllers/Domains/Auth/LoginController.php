@@ -3,10 +3,10 @@
 namespace Loctour\API\V1\Http\Controllers\Domains\Auth;
 
 use Illuminate\Support\Arr;
-use Loctour\API\V1\Http\Controllers\APIController;
 use Illuminate\Support\Facades\Auth;
+use Loctour\API\V1\Http\Controllers\APIController;
 use Loctour\API\V1\Http\Requests\Auth\LoginRequest;
-use Loctour\API\V1\Resources\UserResource;
+use Loctour\API\V1\Resources\User\UserResource;
 
 class LoginController extends APIController
 {

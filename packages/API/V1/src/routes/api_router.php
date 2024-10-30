@@ -7,6 +7,7 @@ Route::group(['prefix' => 'v1'], function (){
         Route::group(['middleware' => ['auth:sanctum']], static function () {
             require __DIR__.'/domains/core.routes.php';
             require __DIR__.'/domains/user.routes.php';
+            require __DIR__.'/domains/content.routes.php';
             // require __DIR__.'/domains/*.routes.php';
 
         });

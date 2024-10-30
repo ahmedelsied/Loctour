@@ -1,6 +1,6 @@
 <?php
 
-namespace Loctour\API\V1\Resources;
+namespace Loctour\API\V1\Resources\User;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Loctour\API\V1\Support\Traits\WithPagination;

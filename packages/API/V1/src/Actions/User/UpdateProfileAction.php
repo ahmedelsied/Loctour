@@ -1,8 +1,7 @@
 <?php
 
-namespace Loctour\API\V1\Actions;
+namespace Loctour\API\V1\Actions\User;
 
-use App\Domain\Core\Models\UserPhoneOtp;
 use Illuminate\Support\Facades\Hash;
 
 class UpdateProfileAction
