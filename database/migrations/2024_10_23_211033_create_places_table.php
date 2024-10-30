@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete()->cascadeOnUpdate();
             $table->string('type', 15);
             $table->json('name');
+            $table->json('description');
+            $table->json('address');
             $table->decimal('latitude', 10, 7);
             $table->decimal('longitude', 10, 7);
             $table->boolean('trend');

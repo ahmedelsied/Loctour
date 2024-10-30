@@ -15,13 +15,23 @@ class PostResource extends JsonResource
         return [
             'id'            =>  $this->id,
             'content'       =>  $this->content,
+            'media'         =>  $this->loadMedia(),
             'likes_count'   =>  $this->likes_count,
             'comments_count'=>  $this->comments_count,
             'user'          =>  new UserResource($this->user),
             'place'         =>  new PlaceResource($this->place),
-            'is_liked'      =>  $this->isLiked,
+            'is_liked'      =>  $this->is_liked,
             'created_at'    =>  $this->created_at->format('Y-m-d h:ia'),
         ];
+    }
+
+    private function loadMedia()
+    {
+        $allMedia = [];
+        $this->getMedia()->map(function ($media) use(&$allMedia){
+            $allMedia[] =  $media->getFullUrl();
+        });
+        return $allMedia;
     }
 
 }

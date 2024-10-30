@@ -11,7 +11,8 @@ class PostRequest extends FormRequest
         return [
             'place_id'  =>  'sometimes|numeric|exists:places,id',
             'content'   =>  'required|string',
-            'media'     =>  'required|image|max:2048'
+            'media'     =>  'nullable|array',
+            'media.*'   =>  'required_with:media|image|max:2048'
         ];
     }
 }

@@ -13,7 +13,7 @@ class PlaceResource extends JsonResource
     {
         return [
             'id'        =>  $this->id,
-            'media'     =>  $this->getMedia(),
+            'media'     =>  $this->getFirstMediaUrl(),
             'name'      =>  $this->name,
             'type'      =>  $this->type,
             'longitude' =>  $this->longitude,
