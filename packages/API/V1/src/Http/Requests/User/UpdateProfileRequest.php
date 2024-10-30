@@ -34,7 +34,7 @@ class UpdateProfileRequest extends FormRequest
                 'phone:SA',
                 Rule::unique('users','phone')->ignore($this->user()->id),
             ],
-            'birthday' => 'sometimes|date',
+            'birthdate' => 'sometimes|date',
             'avatar' => 'sometimes|image|mimes:jpg,jpeg,png|max:2048',
         ];
     }
