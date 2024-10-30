@@ -21,7 +21,7 @@ class AccountController extends APIController
         $user = app(UpdateProfileAction::class)->execute($user,$data);
 
         return $this->success([
-            'message' => __('Profile updated successfully. Please verify your phone number if updated.'),
+            'message' => __('Profile updated successfully'),
             'user'  =>  new UserResource($user)
         ]);
     }
