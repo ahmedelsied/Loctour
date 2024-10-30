@@ -26,6 +26,15 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        Schema::create('followers', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('follower_id')->constrained('users')->onDelete('cascade'); // The user following
+            $table->foreignId('following_id')->constrained('users')->onDelete('cascade'); // The user being followed
+            $table->timestamps();
+
+            $table->unique(['follower_id', 'following_id']); // Prevent duplicate entries
+        });
     }
 
     /**
