@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Loctour\API\V1\Http\Controllers\APIController;
 use Loctour\API\V1\Resources\Content\PostResource;
 
-class HomeScreenController extends APIController
+class NewsFeedScreenController extends APIController
 {
     public function __invoke()
     {
