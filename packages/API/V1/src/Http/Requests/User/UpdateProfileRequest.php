@@ -4,6 +4,7 @@ namespace Loctour\API\V1\Http\Requests\User;
 
 use App\Domain\Core\Enums\DevicesEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
 class UpdateProfileRequest extends FormRequest
@@ -25,7 +26,8 @@ class UpdateProfileRequest extends FormRequest
                 'max:255',
                 Rule::unique('users')->ignore($this->user()->id),
             ],
-            'password' => 'sometimes|string|min:8|confirmed',
+            'current_password' => 'nullable|required_with:password|string',
+            'password' => 'sometimes|required_with:current_password|string|min:8|confirmed',
             'phone' => [
                 'nullable',
                 'sometimes',
@@ -49,5 +51,15 @@ class UpdateProfileRequest extends FormRequest
             'birthday'  =>  __('Birthday'),
             'avatar'    =>  __('Avatar'),
         ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            // Check if the current password is correct
+            if ($this->has('current_password') && !Hash::check($this->current_password, $this->user()->password)) {
+                $validator->errors()->add('current_password', 'The current password is incorrect.');
+            }
+        });
     }
 }
