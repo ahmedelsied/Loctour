@@ -2,6 +2,7 @@
 
 namespace Loctour\API\V1\Http\Controllers\Domains\Content;
 
+use App\Domain\Content\Models\Post;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Loctour\API\V1\Http\Controllers\APIController;
@@ -17,6 +18,16 @@ class PostController extends APIController
         if(Arr::has($validated,'media')){
             foreach($validated['media'] as $media)  $post->addMedia($media)->toMediaCollection();
         }
+        $post->loadCount('likes','comments');
+        $post->loadExists(['likes as is_liked' => function (Builder $query) {
+            $query->where('user_id', auth()->id());
+        }]);
+        return $this->success(new PostResource($post));
+    }
+
+    public function toggleLike(Post $post)
+    {
+        $post->toggleLike();
         $post->loadCount('likes','comments');
         $post->loadExists(['likes as is_liked' => function (Builder $query) {
             $query->where('user_id', auth()->id());

@@ -6,7 +6,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Loctour\API\V1\Http\Controllers\APIController;
 use Loctour\API\V1\Http\Requests\Auth\LoginRequest;
-use Loctour\API\V1\Resources\User\UserResource;
+use Loctour\API\V1\Resources\User\AuthUserResource;
 
 class LoginController extends APIController
 {
@@ -22,7 +22,7 @@ class LoginController extends APIController
             $this->storeFCMToken();
             $this->user->forceFill(['token' => $token->plainTextToken]);
 
-            return $this->success(new UserResource($this->user));
+            return $this->success(new AuthUserResource($this->user));
         }
 
         return $this->error(__('Invalid phone or password'));

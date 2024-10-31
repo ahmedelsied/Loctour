@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->boolean('status')->default(true);
             $table->date('birthdate')->nullable();
+            $table->string('gender',10)->nullable();
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

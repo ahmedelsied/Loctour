@@ -6,7 +6,7 @@ use App\Domain\Core\Models\User;
 use App\Domain\Core\Models\UserPhoneOtp;
 use Loctour\API\V1\Http\Controllers\APIController;
 use Loctour\API\V1\Http\Requests\Auth\VerifyPhoneRequest;
-use Loctour\API\V1\Resources\User\UserResource;
+use Loctour\API\V1\Resources\User\AuthUserResource;
 
 class VerifyPhoneController extends APIController
 {
@@ -22,7 +22,7 @@ class VerifyPhoneController extends APIController
             $token = $this->user->createToken('app-token');
             $this->user->forceFill(['token' => $token->plainTextToken]);
             $this->user->userPhoneOtp()->delete();
-            return $this->success(new UserResource($this->user));
+            return $this->success(new AuthUserResource($this->user));
         }
         return $this->error(__('Invalid phone or otp'));
     }

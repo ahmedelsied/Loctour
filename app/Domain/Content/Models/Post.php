@@ -17,7 +17,7 @@ class Post extends Model implements HasMedia
     use HasFactory, InteractsWithMedia;
 
     protected $guarded = [];
-    protected $with = ['user'];
+    protected $with = ['user','media','place'];
 
     public function likes(): MorphMany
     {
@@ -31,6 +31,19 @@ class Post extends Model implements HasMedia
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function toggleLike()
+    {
+        $userId = auth()->id();
+
+        // Find existing like for the current user
+        $liked = $this->likes()->where('user_id', $userId)->exists();
+
+        $liked ?
+            $this->likes()->where('user_id', $userId)->delete()
+        :
+            $this->likes()->create(['user_id' => $userId]);
     }
 
     public function place(): BelongsTo

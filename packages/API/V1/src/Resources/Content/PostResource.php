@@ -22,6 +22,7 @@ class PostResource extends JsonResource
             'place'         =>  new PlaceResource($this->place),
             'is_liked'      =>  $this->is_liked,
             'created_at'    =>  $this->created_at->format('Y-m-d h:ia'),
+            'since'         =>  $this->created_at->diffForHumans()
         ];
     }
 

@@ -14,6 +14,7 @@ class LocalizationMiddleware
             App::setLocale(session()->get('dashboard-locale'));
         } elseif ($request->wantsJson() && $request->hasHeader('Accept-Language')) {
             App::setLocale($request->header('Accept-Language') === 'ar' ? 'ar' : 'en');
+            \Carbon\Carbon::setLocale($request->header('Accept-Language'));
         }
 
         return $next($request);
